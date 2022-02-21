@@ -1,9 +1,1 @@
-[
-    {
-        "id": "12345",
-        "title": "A Book",
-        "imageUrl": "https://api.time.com/wp-content/uploads/2015/06/521811839-copy.jpg",
-        "description": "An awesome book.",
-        "price": "29.99"
-    }
-]
+[{"id":"12345","title":"Book","imageUrl":"https://api.time.com/wp-content/uploads/2015/06/521811839-copy.jpg","description":"It's really amazing...","price":"39.99"}]
