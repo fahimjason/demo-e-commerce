@@ -11,7 +11,6 @@ exports.getAddProduct = (req, res, next) => {
 exports.postAddProduct = (req, res, next) => {
     const { title, imageUrl, price, description } = req.body;
 
-    // Product.create()
     req.user.createProduct({
         title,
         imageUrl,
@@ -33,7 +32,6 @@ exports.getEditProduct = (req, res, next) => {
     if (!editMode) return res.redirect('/');
 
     req.user.getProducts({ where: { id: productId } })
-        // Product.findByPk(productId)
         .then(products => {
             const product = products[0];
 
@@ -68,7 +66,7 @@ exports.postEditProduct = (req, res, next) => {
 }
 
 exports.getProducts = (req, res, next) => {
-    // Product.findAll()
+
     req.user.getProducts()
         .then(products => {
             res.render('admin/products', {

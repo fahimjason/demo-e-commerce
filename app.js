@@ -51,7 +51,6 @@ Order.belongsToMany(Product, { through: OrderItem });
 sequelize.sync()
     .then((res) => {
         return User.findByPk(1)
-        // console.log(res);
     })
     .then(user => {
         if (!user) return User.create({ name: 'ABC', email: 'abc@gmail.com' });
