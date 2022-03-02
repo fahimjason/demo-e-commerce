@@ -48,12 +48,22 @@ class User {
             .find({ _id: { $in: productIds } })
             .toArray()
             .then(products => products.map(p => {
-                console.log(p);
                 return {
                     ...p,
                     quantity: this.cart.items.find(i => i.productId.toString() === p._id.toString()).quantity
                 }
             }));
+    }
+
+    deleteItemsFromCart(productId) {
+        const updatedCartItems = this.cart.items.filter(i => i.productId.toString() !== productId.toString());
+        const db = getDb();
+
+        return db.collection('users')
+            .updateOne(
+                { _id: new ObjectId(this._id) },
+                { $set: { cart: { items: updatedCartItems } } }
+            );
     }
 
     static findById(userId) {
