@@ -19,14 +19,14 @@ const shopRoutes = require('./routes/shop');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use((req, res, next) => {
-//     User.findById('621f30ecb6f8c07e1b023abf')
-//         .then(user => {
-//             req.user = new User(user.name, user.email, user.cart, user._id);
-//             next();
-//         })
-//         .catch(err => console.log(err));
-// });
+app.use((req, res, next) => {
+    User.findById('6220aaf094f22ac3aa7381d2')
+        .then(user => {
+            req.user = user;
+            next();
+        })
+        .catch(err => console.log(err));
+});
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
@@ -34,5 +34,21 @@ app.use(shopRoutes);
 app.use(errorController.get404);
 
 mongoose.connect('mongodb+srv://demoShop:demoShop123@cluster0.4i8kb.mongodb.net/demoShop?retryWrites=true&w=majority')
-    .then(() => { app.listen(3000); console.log('Connected') })
+    .then(() => {
+        User.findOne()
+            .then(user => {
+                if (!user) {
+                    const user = new User({
+                        name: 'Test',
+                        email: 'test@test.com',
+                        cart: {
+                            items: []
+                        }
+                    });
+                    user.save();
+                }
+            })
+        app.listen(3000);
+        console.log('Connected to server');
+    })
     .catch(err => console.log(err));
