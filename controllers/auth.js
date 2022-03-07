@@ -173,7 +173,6 @@ exports.getNewPassword = (req, res, next) => {
 
     User.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } })
         .then(user => {
-            console.log(user, 'Line: 175')
             let message = req.flash('error');
 
             if (message.length > 0) {
