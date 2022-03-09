@@ -36,7 +36,7 @@ exports.postAddProduct = (req, res, next) => {
     }
 
     const imageUrl = image.path;
-    console.log(image);
+
     if (!errors.isEmpty()) {
         return res.status(422).render('admin/edit-product', {
             pageTitle: 'Add Product',
