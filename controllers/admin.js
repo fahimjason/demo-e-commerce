@@ -130,7 +130,6 @@ exports.postEditProduct = (req, res, next) => {
             product.description = description;
 
             if (image) {
-                console.log(image)
                 fileHelper.deleteFile(product.imageUrl);
                 product.imageUrl = image.path;
             }
@@ -138,7 +137,7 @@ exports.postEditProduct = (req, res, next) => {
             return product.save().then(result => {
                 console.log('Product updated successfully.');
                 res.redirect('/admin/products');
-            })
+            });
         })
         .catch((err) => {
             const error = new Error(err);
@@ -166,12 +165,19 @@ exports.getProducts = (req, res, next) => {
 exports.postDeleteProduct = (req, res, next) => {
     const prodId = req.body.productId;
 
-    Product.deleteOne({ _id: prodId, userId: req.user._id })
+    Product.findById(prodId)
+        .then(product => {
+            if (!product) {
+                return next(new Error('Product not found.'));
+            }
+            fileHelper.deleteFile(product.imageUrl);
+            return Product.deleteOne({ _id: prodId, userId: req.user._id });
+        })
         .then(() => {
-            console.log('Product destroyed.');
+            console.log('DESTROYED PRODUCT');
             res.redirect('/admin/products');
         })
-        .catch((err) => {
+        .catch(err => {
             const error = new Error(err);
             error.httpStatusCode = '500';
             return next(error);
