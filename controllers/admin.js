@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 
 const Product = require('../models/product');
+const fileHelper = require('../util/file');
 
 exports.getAddProduct = (req, res, next) => {
     res.render('admin/edit-product', {
@@ -129,6 +130,8 @@ exports.postEditProduct = (req, res, next) => {
             product.description = description;
 
             if (image) {
+                console.log(image)
+                fileHelper.deleteFile(product.imageUrl);
                 product.imageUrl = image.path;
             }
 
