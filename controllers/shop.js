@@ -154,13 +154,13 @@ exports.getCheckout = (req, res, next) => {
                     return {
                         name: p.productId.title,
                         description: p.productId.description,
-                        amount: p.quantity * 100,
+                        amount: p.productId.price * 100,
                         currency: "usd",
                         quantity: p.quantity
                     }
                 }),
                 success_url: req.protocol + '://' + req.get('host') + '/checkout/success',      // => http://localhost:3000
-                cancel_url: req.protocol + '://' + req.get('host') + '/checkout/success'
+                cancel_url: req.protocol + '://' + req.get('host') + '/checkout/cancel'
             });
         })
         .then(session => {
