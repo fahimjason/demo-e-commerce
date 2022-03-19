@@ -14,7 +14,7 @@ const helmet = require("helmet");
 const compression = require('compression');
 const morgan = require('morgan');
 
-require('dotenv').config()
+require('dotenv').config();
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
