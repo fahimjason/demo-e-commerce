@@ -33,7 +33,7 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-mongoose.connect('mongodb+srv://demoShop:demoShop123@cluster0.4i8kb.mongodb.net/demoShop?retryWrites=true&w=majority')
+mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.4i8kb.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority`)
     .then(() => {
         User.findOne()
             .then(user => {
