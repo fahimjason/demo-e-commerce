@@ -8,6 +8,8 @@ const errorController = require('./controllers/error');
 const User = require('./models/user');
 // const mongoConnect = require('./util/database').mongoConnect;
 
+require('dotenv').config();
+
 const app = express();
 
 app.set('view engine', 'ejs');
