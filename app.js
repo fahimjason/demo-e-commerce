@@ -9,10 +9,12 @@ const csrf = require('csurf');
 const flash = require('connect-flash');
 const multer = require('multer');
 
+require('dotenv').config();
+
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
-const MONGODB_URI = 'mongodb+srv://demoShop:demoShop123@cluster0.4i8kb.mongodb.net/demoShop?retryWrites=true&w=majority'
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.4i8kb.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority`;
 
 const app = express();
 
